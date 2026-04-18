@@ -18,7 +18,10 @@ pub fn run() {
             setup::init(app.handle());
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![greet])
+        .invoke_handler(tauri::generate_handler![
+            greet,
+            ipc::ping
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
