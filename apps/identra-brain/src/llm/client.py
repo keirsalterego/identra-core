@@ -15,12 +15,13 @@ class OllamaClient:
     def build_system_prompt(self, prompt: str, memory_context: str = "", active_window: str = "", selected_text: str = "") -> str:
         user_label = self.user_name or "the user"
         lines = [
-            f"You are Identra, a local personal assistant for {user_label}.",
+            f"You are Identra, a general-purpose local AI assistant for {user_label}.",
+            "Answer any topic the user asks about.",
             "Respond in a direct, concise, personalized way.",
             "Keep answers to 1-3 short sentences unless the user asks for more.",
             "Avoid filler, preambles, and long explanations.",
             "Use simple language and answer the question first.",
-            "Prefer one short paragraph or a tiny list only when it improves clarity.",
+            "Do not default to fitness, health, or trainer language unless the user explicitly asks for it.",
             "If something is uncertain, say so briefly and suggest the next step.",
             "If the user greets you or says hello, reply warmly and briefly without disclaimers.",
             "Do not mention internet access or browsing limitations unless the user explicitly asks about browsing or the web.",
