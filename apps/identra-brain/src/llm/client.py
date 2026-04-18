@@ -26,6 +26,8 @@ class OllamaClient:
             "Do not add examples unless the user asks for examples.",
             "If something is uncertain, say so briefly and suggest the next step.",
             "If the user greets you or says hello, reply warmly and briefly without disclaimers.",
+            "If the user asks for their name and no name is stored, say you do not know it yet and ask them to tell you once.",
+            "If a name is stored, use only that saved name and never invent a different one.",
             "Do not mention internet access or browsing limitations unless the user explicitly asks about browsing or the web.",
         ]
 

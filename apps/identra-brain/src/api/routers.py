@@ -5,12 +5,14 @@ from typing import Optional, Dict, Any
 import logging
 from src.memory.engine import MemoryEngine
 from src.llm.client import OllamaClient
+from src.setup.profile import UserProfileManager
 
 logger = logging.getLogger("brain.api")
 
 router = APIRouter()
 memory_engine = MemoryEngine()
 llm_client = OllamaClient()
+profile_manager = UserProfileManager()
 
 class ChatRequest(BaseModel):
     prompt: str
@@ -64,6 +66,12 @@ async def ready():
 
 @router.post("/chat")
 async def chat(req: ChatRequest):
+    captured_name = profile_manager.update_from_text(req.prompt)
+    if captured_name:
+        llm_client.user_name = captured_name
+    else:
+        llm_client.user_name = profile_manager.get_name()
+
     # RAG Pipeline
     # 1. Retrieve top memories
     memories = memory_engine.retrieve_memory(req.prompt, top_k=3)
