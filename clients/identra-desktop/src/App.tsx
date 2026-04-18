@@ -34,6 +34,7 @@ function App() {
   }>({});
   const [setupState, setSetupState] = useState<SetupState | null>(null);
   const [isReady, setIsReady] = useState(false);
+  const [includeSelectedText, setIncludeSelectedText] = useState(false);
   const [showDebug, setShowDebug] = useState(false);
   const [logs, setLogs] = useState<LogEntry[]>([]);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -92,9 +93,8 @@ function App() {
   // Capture current context
   const captureContext = async () => {
     try {
-      const ctx: { active_app?: string; selected_text?: string } = await invoke(
-        "get_current_context"
-      );
+      const command = includeSelectedText ? "get_current_context" : "get_passive_context";
+      const ctx: { active_app?: string; selected_text?: string } = await invoke(command);
       setContext({
         activeApp: ctx.active_app,
         selectedText: ctx.selected_text,
@@ -303,6 +303,14 @@ function App() {
       </div>
 
       <form className="chat-input-form" onSubmit={handleSubmit}>
+        <label className="context-toggle" title="Enable selected text capture (may trigger OS accessibility prompt)">
+          <input
+            type="checkbox"
+            checked={includeSelectedText}
+            onChange={(e) => setIncludeSelectedText(e.target.checked)}
+          />
+          Include selected text
+        </label>
         <input
           type="text"
           value={input}

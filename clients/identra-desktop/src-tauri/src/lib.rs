@@ -33,6 +33,7 @@ pub fn run() {
             greet,
             ipc::ping,
             ipc::get_current_context,
+            ipc::get_passive_context,
             ipc::record_interaction,
             vault::encrypt_memory,
             vault::decrypt_memory,

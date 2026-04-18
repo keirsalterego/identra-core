@@ -23,6 +23,15 @@ pub fn get_current_context() -> ContextPayload {
 }
 
 #[tauri::command]
+pub fn get_passive_context() -> ContextPayload {
+    println!("[ipc] passive context requested from frontend");
+    ContextPayload {
+        active_app: screener::get_active_window_title(),
+        selected_text: None,
+    }
+}
+
+#[tauri::command]
 pub async fn record_interaction(user_prompt: String, assistant_response: String) -> Result<(), String> {
     println!("[ipc] recording interaction with brain service");
     
