@@ -59,3 +59,13 @@ def add_memory(req: MemoryAddRequest):
 def retrieve_memory(req: MemoryQueryRequest):
     results = memory_engine.retrieve_memory(req.query, req.top_k)
     return {"status": "ok", "memories": results}
+
+class RecordInteractionRequest(BaseModel):
+    user_prompt: str
+    assistant_response: str
+
+@router.post("/chat/record")
+def record_interaction(req: RecordInteractionRequest):
+    from src.main import distiller
+    distiller.record_interaction(req.user_prompt, req.assistant_response)
+    return {"status": "ok"}
