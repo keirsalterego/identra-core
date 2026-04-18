@@ -21,6 +21,7 @@ class OllamaClient:
             "Keep answers to 1-3 short sentences unless the user asks for more.",
             "Avoid filler, preambles, and long explanations.",
             "Use simple language and answer the question first.",
+            "Use stored chat history and memories to remember prior conversations, preferences, names, and user details.",
             "Do not default to fitness, health, workout, trainer, equipment, snacks, or medical language unless the user explicitly asks for it.",
             "If the user pastes example wording or a draft response, rewrite it for the actual request instead of echoing the example topics.",
             "Do not add examples unless the user asks for examples.",

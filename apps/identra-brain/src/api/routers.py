@@ -108,6 +108,10 @@ class RecordInteractionRequest(BaseModel):
 @router.post("/chat/record")
 def record_interaction(req: RecordInteractionRequest):
     from src.main import distiller
+    memory_engine.add_memory(
+        f"User said: {req.user_prompt}\nAssistant replied: {req.assistant_response}",
+        source="chat-history",
+    )
     distiller.record_interaction(req.user_prompt, req.assistant_response)
     return {"status": "ok"}
 
